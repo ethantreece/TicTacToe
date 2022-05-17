@@ -8,7 +8,7 @@ package data;
 public class Board {
 
     /** Tic tac toe board */
-    private char[][] board;
+    private String[] board;
     
     /** Number of values currently on the board */
     private int size;
@@ -18,33 +18,33 @@ public class Board {
      * Constructs the board
      */
     public Board() {
-        board = new char[3][3];
+        board = new String[] { "1", "2", "3", 
+                            "4", "5", "6", 
+                            "7", "8", "9" };
         size = 0;
     }
     
     /**
-     * Adds an 'X' to the board
-     * @param x x position
-     * @param y y position
+     * Adds an "X" to the board
+     * @param pos position on the board
      */
-    public void addX(int x, int y) {
-        if (!isValid(x, y)) {
+    public void addX(int pos) {
+        if (!isValid(pos)) {
             throw new IllegalArgumentException("Please choose a different spot.");
         }
-        board[x][y] = 'X';
+        board[pos - 1] = "X";
         size++;
     }
 
     /**
-     * Adds an 'O' to the board
-     * @param x x position
-     * @param y y position
+     * Adds an "O" to the board
+     * @param pos position on the board
      */
-    public void addO(int x, int y) {
-        if (!isValid(x, y)) {
+    public void addO(int pos) {
+        if (!isValid(pos)) {
             throw new IllegalArgumentException("Please choose a different spot.");
         }
-        board[x][y] = 'O';
+        board[pos - 1] = "O";
         size++;
     }
     
@@ -61,67 +61,60 @@ public class Board {
      * @return
      */
     public String isWinner() {
-        // Checking horizontals
-        for (int i = 0; i < 3; i++) {
-            String line = "";
-            line += board[i][0];
-            line += board[i][1];
-            line += board[i][2];
-            if ("XXX".equals(line)) {
-                return "X wins!";
-            } else if ("OOO".equals(line)) {
-                return "O wins!";
-            }
-        }
-        // Checking verticals
-        for (int i = 0; i < 3; i++) {
-            String line = "";
-            line += board[0][i];
-            line += board[1][i];
-            line += board[2][i];
-            if ("XXX".equals(line)) {
-                return "X wins!";
-            } else if ("OOO".equals(line)) {
-                return "O wins!";
-            }
-        }
-        // Checking slashes
-        String line = "";
-        line += board[0][0];
-        line += board[1][1];
-        line += board[2][2];
-        if ("XXX".equals(line)) {
-            return "X wins!";
-        } else if ("OOO".equals(line)) {
-            return "O wins!";
-        }
         
-        line = "";
-        line += board[0][2];
-        line += board[1][1];
-        line += board[2][0];
-        if ("XXX".equals(line)) {
-            return "X wins!";
-        } else if ("OOO".equals(line)) {
-            return "O wins!";
+        for (int i = 0; i < 8; i++) {
+            
+            String line = null;
+            
+            switch (i) {
+            case 0:
+                line = board[0] + board[1] + board[2];
+                break;
+            case 1:
+                line = board[3] + board[4] + board[5];
+                break;
+            case 2:
+                line = board[6] + board[7] + board[8];
+                break;
+            case 3:
+                line = board[0] + board[3] + board[6];
+                break;
+            case 4:
+                line = board[1] + board[4] + board[7];
+                break;
+            case 5:
+                line = board[2] + board[5] + board[8];
+                break;
+            case 6:
+                line = board[0] + board[4] + board[8];
+                break;
+            case 7:
+                line = board[2] + board[4] + board[6];
+                break;  
+            }
+            
+            if ("OOO".equals(line)) {
+                return "O";
+            } else if ("XXX".equals(line)) {
+                return "X";
+            }
         }
         
         if (size == 9) {
-            return "Draw.";
+            return "draw";
         } else {
-            return "Continue.";
+            return null;
         }
-        
     }
     
     /**
      * Checks if the current position of the board is a valid space.
      * @param x x position
      * @param y y position
-     * @return if the position on the board is not equal to 0, than it's already been taken
+     * @return if the position on the board is not equal to 0, than it"s already been taken
      */
-    private boolean isValid(int x, int y) {
-        return board[x][y] == 0;
+    private boolean isValid(int pos) {
+        return board[pos - 1] == String.valueOf(pos);
     }
     
     
