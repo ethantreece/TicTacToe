@@ -6,7 +6,7 @@ package data;
  *
  */
 public class Board {
-
+    
     /** Tic tac toe board */
     private String[] board;
     
@@ -22,6 +22,43 @@ public class Board {
                             "4", "5", "6", 
                             "7", "8", "9" };
         size = 0;
+    }
+    
+    public void printBoard() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("|---|---|---|\n");
+        
+        sb.append("|-");
+        sb.append(board[0]);
+        sb.append("-|-");
+        sb.append(board[1]);
+        sb.append("-|-");
+        sb.append(board[2]);
+        sb.append("-|\n");
+
+        sb.append("|-----------|\n");
+        
+        sb.append("|-");
+        sb.append(board[3]);
+        sb.append("-|-");
+        sb.append(board[4]);
+        sb.append("-|-");
+        sb.append(board[5]);
+        sb.append("-|\n");
+
+        sb.append("|-----------|\n");
+        
+        sb.append("|-");
+        sb.append(board[6]);
+        sb.append("-|-");
+        sb.append(board[7]);
+        sb.append("-|-");
+        sb.append(board[8]);
+        sb.append("-|\n");
+
+        sb.append("|---|---|---|\n");
+        
+        System.out.println(sb.toString());
     }
     
     /**
@@ -111,10 +148,10 @@ public class Board {
      * Checks if the current position of the board is a valid space.
      * @param x x position
      * @param y y position
-     * @return if the position on the board is not equal to 0, than it"s already been taken
+     * @return if the position on the board is not equal to 1-9, than it"s already been taken
      */
     private boolean isValid(int pos) {
-        return board[pos - 1] == String.valueOf(pos);
+        return board[pos - 1].equals(String.valueOf(pos));
     }
     
     
